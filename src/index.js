@@ -1,34 +1,38 @@
 const crypto = require('crypto')
 
+var lastIndex = 0
+
 class Block {
-  newBlock (prevHash, transactions, proof) {
-    let ver = 1
-    return {
-      'ver': ver + 1,
-      'prevHash': prevHash,
-      'transactions': transactions,
-      'proof': proof,
-      'timestamp': Date.now()
-    }
+  constructor (prevHash, transactions, proof) {
+    this.ver = 1
+    this.index = lastIndex++
+    this.prevHash = prevHash
+    this.transactions = transactions
+    this.proof = proof
+    this.timestamp = Date.now()
   }
-}
 
-class Hash {
-  newHash (block) {
+  json () {
+    return JSON.stringify(this)
+  }
+
+  hash () {
     const secret = 'smroot'
-    const hash = crypto.createHmac('sha256', secret)
-      .update(JSON.stringify(block))
+    return crypto.createHmac('sha256', secret)
+      .update(this.json())
       .digest('hex')
-
-    return hash
   }
 }
-const hash = new Hash()
-const block = new Block()
 
 // first primary block
-let bloc = block.newBlock('1', null, 12)
+let bloc = new Block(null, null, 12)
 
-let bloc2 = block.newBlock(hash.newHash(bloc), [1, 2, 3], 15)
+console.log(bloc.hash() + ': \n\t' + bloc.json())
 
-console.log(block.newBlock(hash.newHash(bloc2), [1, 4, 3], 85))
+let bloc2 = new Block(bloc.hash(), [1, 2, 3], 15)
+
+console.log(bloc2.hash() + ': \n\t' + bloc2.json())
+
+let bloc3 = new Block(bloc2.hash(), [1, 4, 3], 85)
+
+console.log(bloc3.hash() + ': \n\t' + bloc3.json())
