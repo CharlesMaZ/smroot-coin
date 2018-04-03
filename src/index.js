@@ -1,8 +1,11 @@
 const crypto = require('crypto')
 
+var lastIndex = 0
+
 class Block {
   constructor (prevHash, transactions, proof) {
     this.ver = 1
+    this.index = lastIndex++
     this.prevHash = prevHash
     this.transactions = transactions
     this.proof = proof
