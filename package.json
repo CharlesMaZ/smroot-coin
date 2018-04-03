@@ -4,6 +4,10 @@
   "description": "smroot-coin yet another cryptocurrency",
   "main": "src/index.js",
   "scripts": {
+    "start": "node src/index.js",
+    "dev": "node src/index.js",
+    "lint": "eslint --ext .js --ignore-path .gitignore .",
+    "lint:fix": "eslint  --fix --ext .js --ignore-path .gitignore .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +19,14 @@
   "bugs": {
     "url": "https://github.com/smrootbot/smroot-coin/issues"
   },
-  "homepage": "https://github.com/smrootbot/smroot-coin#readme"
+  "homepage": "https://github.com/smrootbot/smroot-coin#readme",
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-friendly-formatter": "^4.0.0",
+    "eslint-plugin-import": "^2.10.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-standard": "^3.0.1"
+  }
 }
