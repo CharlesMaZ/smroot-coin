@@ -1,17 +1,8 @@
 const crypto = require('crypto')
 
-declare interface IBlock {
-  ver: number
-  index: number
-  prevHash: string | null
-  transactions: any[] | null
-  proof: number
-  timestamp: number
-}
-
 let lastIndex = 1
 
-class Block implements IBlock {
+class Block {
   ver: number
   index: number
   prevHash: string | null
@@ -52,3 +43,23 @@ console.log(bloc2.hash() + ': \n\t' + bloc2.json())
 let bloc3 = new Block(bloc2.hash(), [1, 4, 3], 85)
 
 console.log(bloc3.hash() + ': \n\t' + bloc3.json())
+
+class Blockchain {
+  block: Block
+  chain: Block[]
+  transactions: any[]
+
+  constructor (block: Block) {
+    this.block = block
+    this.chain = []
+    this.chain.push(this.block)
+    this.transactions = []
+  }
+
+  lastBlock () {
+    return this.chain.slice(-1).pop()
+  }
+}
+
+const bck = new Blockchain(bloc3)
+console.log(bck.lastBlock())
