@@ -33,16 +33,8 @@ class Block {
 
 // first primary block
 let bloc = new Block(null, null, 12)
-
-console.log(bloc.hash() + ': \n\t' + bloc.json())
-
 let bloc2 = new Block(bloc.hash(), [1, 2, 3], 15)
-
-console.log(bloc2.hash() + ': \n\t' + bloc2.json())
-
 let bloc3 = new Block(bloc2.hash(), [1, 4, 3], 85)
-
-console.log(bloc3.hash() + ': \n\t' + bloc3.json())
 
 class Blockchain {
   block: Block
@@ -56,10 +48,26 @@ class Blockchain {
     this.transactions = []
   }
 
+  newTransaction (sender: string, recipient: string, amount: number) {
+    this.transactions.push({
+      sender: sender,
+      recipient: recipient,
+      amount: amount
+    })
+    return this.chain[this.chain.length + 1]
+  }
+
   lastBlock () {
-    return this.chain.slice(-1).pop()
+    return this.chain[this.chain.length - 1]
+  }
+
+  fullChain () {
+    return {
+      chain:  this.chain,
+      length: this.chain.length
+    }
   }
 }
 
 const bck = new Blockchain(bloc3)
-console.log(bck.lastBlock())
+console.log(bck.fullChain())
