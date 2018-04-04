@@ -2,13 +2,16 @@
   "name": "smroot-coin",
   "version": "0.0.1",
   "description": "smroot-coin yet another cryptocurrency",
-  "main": "src/index.js",
+  "main": "dist/index",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "node src/index.js",
-    "lint": "eslint --ext .js --ignore-path .gitignore .",
-    "lint:fix": "eslint  --fix --ext .js --ignore-path .gitignore .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npm run serve",
+    "dev": "npm run build && npm run serve",
+    "build": "npm run build-ts && npm run tslint",
+    "serve": "node dist/index",
+    "test": "jest --forceExit --verbose",
+    "build-ts": "tsc",
+    "watch-ts": "tsc -w",
+    "tslint": "tslint -c tslint.json -p tsconfig.json"
   },
   "repository": {
     "type": "git",
@@ -21,12 +24,12 @@
   },
   "homepage": "https://github.com/smrootbot/smroot-coin#readme",
   "devDependencies": {
-    "eslint": "^4.19.1",
-    "eslint-config-standard": "^11.0.0",
-    "eslint-friendly-formatter": "^4.0.0",
-    "eslint-plugin-import": "^2.10.0",
-    "eslint-plugin-node": "^6.0.1",
-    "eslint-plugin-promise": "^3.7.0",
-    "eslint-plugin-standard": "^3.0.1"
+    "@types/node": "^9.6.2",
+    "jest": "^22.4.2",
+    "ts-jest": "^22.4.1",
+    "ts-node": "^5.0.1",
+    "tslint": "^5.9.1",
+    "tslint-config-standard": "^7.0.0",
+    "typescript": "^2.8.1"
   }
 }

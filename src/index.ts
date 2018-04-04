@@ -1,9 +1,25 @@
 const crypto = require('crypto')
 
-var lastIndex = 0
+declare interface IBlock {
+  ver: number
+  index: number
+  prevHash: string | null
+  transactions: any[] | null
+  proof: number
+  timestamp: number
+}
 
-class Block {
-  constructor (prevHash, transactions, proof) {
+let lastIndex = 1
+
+class Block implements IBlock {
+  ver: number
+  index: number
+  prevHash: string | null
+  transactions: any[] | null
+  proof: number
+  timestamp: number
+
+  constructor (prevHash: string | null, transactions: any[] | null, proof: number) {
     this.ver = 1
     this.index = lastIndex++
     this.prevHash = prevHash
