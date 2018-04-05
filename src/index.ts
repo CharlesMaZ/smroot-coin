@@ -3,7 +3,6 @@ const crypto = require('crypto')
 let lastIndex = 1
 
 class Block {
-  ver: number
   index: number
   prevHash: string | null
   transactions: any[] | null
@@ -11,7 +10,6 @@ class Block {
   timestamp: number
 
   constructor (prevHash: string | null, transactions: any[] | null, proof: number) {
-    this.ver = 1
     this.index = lastIndex++
     this.prevHash = prevHash
     this.transactions = transactions
@@ -37,14 +35,12 @@ let bloc2 = new Block(bloc.hash(), [1, 2, 3], 15)
 let bloc3 = new Block(bloc2.hash(), [1, 4, 3], 85)
 
 class Blockchain {
-  block: Block
+  blocks: Block[]
   chain: Block[]
   transactions: any[]
 
-  constructor (block: Block) {
-    this.block = block
-    this.chain = []
-    this.chain.push(this.block)
+  constructor (blocks: Block[]) {
+    this.chain = blocks
     this.transactions = []
   }
 
@@ -69,5 +65,6 @@ class Blockchain {
   }
 }
 
-const bck = new Blockchain(bloc3)
+const blocks = [bloc, bloc2, bloc3]
+const bck = new Blockchain(blocks)
 console.log(bck.fullChain())
